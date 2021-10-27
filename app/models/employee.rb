@@ -4,4 +4,5 @@ class Employee < ApplicationRecord
   belongs_to :department
   has_many :project_details
   has_many :projects, through: :project_details
+  has_one :user
 end
