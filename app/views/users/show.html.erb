@@ -1,0 +1,12 @@
+<% provide(:title, @user.employee.name) %>
+<div class="row">
+  <div class="col-md-8">
+    <% if @user.employee.projects.any? %>
+      <h3>Projects (<%= @user.employee.projects.count %>)</h3>
+      <ol class="microposts">
+        <%= render @projects %>
+      </ol>
+      <%= will_paginate @projects %>
+    <% end %>
+  </div>
+</div>

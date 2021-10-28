@@ -14,10 +14,8 @@ ActiveRecord::Schema.define(version: 2021_10_28_022127) do
 
   create_table "departments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
-    t.bigint "leader_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["leader_id"], name: "fk_rails_6937e841eb"
   end
 
   create_table "employees", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -26,7 +24,7 @@ ActiveRecord::Schema.define(version: 2021_10_28_022127) do
     t.string "address"
     t.string "phone_number"
     t.datetime "working_day"
-    t.bigint "department_id", null: false
+    t.bigint "department_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["department_id"], name: "index_employees_on_department_id"
@@ -83,7 +81,6 @@ ActiveRecord::Schema.define(version: 2021_10_28_022127) do
     t.index ["role_id"], name: "fk_rails_642f17018b"
   end
 
-  add_foreign_key "departments", "employees", column: "leader_id"
   add_foreign_key "employees", "departments"
   add_foreign_key "employees", "profiles"
   add_foreign_key "employees", "users"
