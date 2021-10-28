@@ -6,7 +6,6 @@ class CreateEmployees < ActiveRecord::Migration[6.1]
       t.string :address
       t.string :phone_number
       t.datetime :working_day
-      t.references :role, null: false, foreign_key: true
       t.references :department, null: false, foreign_key: true
 
       t.timestamps
