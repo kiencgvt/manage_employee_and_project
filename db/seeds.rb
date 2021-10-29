@@ -9,3 +9,11 @@
   Department.create(name: "BU#{i+1}")
 end
 Role.create([ { name: "Admin" }, { name: "HR" }, { name: "Leader" }, { name: "Employee" } ])
+User.create(email: "admin@gmail.com", password: "123456", role_id: 1)
+Profile.create(name: "Admin")
+Employee.create(profile_id: 1, user_id: 1)
+admin = User.find(1)
+50.times do
+  description = Faker::Lorem.sentence(word_count: 20)
+  admin.employee.projects.create(description: description)
+end

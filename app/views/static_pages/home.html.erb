@@ -1,4 +1,17 @@
-<h1>Management App</h1>
-<p>
-  This is the home page for the management application.
-</p>
+<% if user_signed_in? %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <%= render 'shared/user_info' %>
+      </section>
+      <section class="micropost_form">
+        <%= render 'shared/project_form' %>
+      </section>
+    </aside>
+  </div>
+<% else %>
+  <h1>Management App</h1>
+  <p>
+    This is the home page for the management application.
+  </p>
+<% end %>

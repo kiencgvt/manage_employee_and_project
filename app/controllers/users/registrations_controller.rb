@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         set_flash_message! :notice, :signed_up
 
         Profile.create
-        Employee.create profile_id: 1, user_id: 1
+        Employee.create profile_id: Profile.last.id, user_id: User.last.id
 
         sign_up(resource_name, resource)
         respond_with resource, location: after_sign_up_path_for(resource)

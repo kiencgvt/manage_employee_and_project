@@ -1,0 +1,8 @@
+<li id="project-<%= project.id %>">
+  <span class="content"><%= project.description %></span>
+  <span class="timestamp">
+    <p class="text-danger">
+      <%= project.created_at.strftime("The project was created at %r on %d/%m/%Y") %>
+    </p>
+  </span>
+</li>

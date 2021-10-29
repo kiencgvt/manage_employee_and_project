@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2021_10_28_022127) do
   end
 
   create_table "profiles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
+    t.string "name", default: "Noname"
     t.datetime "birthday"
     t.string "home_town"
     t.string "gender"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2021_10_28_022127) do
   create_table "projects", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.bigint "department_id", null: false
+    t.bigint "department_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["department_id"], name: "index_projects_on_department_id"
