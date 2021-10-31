@@ -1,11 +1,12 @@
 <%= form_with(model: @project, local: true) do |f| %>
   <%#= render 'shared/error_messages', object: f.object %>
   <div class="field">
+    <%= f.label :description %><br />
     <%= f.text_area :description %>
   </div>
   <%= f.fields_for :project_details do |pd| %>
-    <%= hidden_field_tag :project_id, Project.last.id %>
-    <%= hidden_field_tag :employee_id, current_user.id %>
+    <%= pd.hidden_field :project_id, value: Project.last.id %>
+    <%= pd.hidden_field :employee_id, value: current_user.employee.id %>
   <% end %>
   <%= f.submit "Create", class: "btn btn-primary" %>
 <% end %>
