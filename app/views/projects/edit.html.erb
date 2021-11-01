@@ -9,8 +9,9 @@
     <%= f.text_area :description %>
   </div>
   <%= f.fields_for :project_details do |pd| %>
-    <%= pd.hidden_field :project_id, value: Project.last.id %>
+    <%= pd.hidden_field :id, value: ProjectDetail.where("project_id = ? and employee_id = ?", @project.id, current_user.employee.id).ids.first %>
+    <%= pd.hidden_field :project_id, value: @project.id %>
     <%= pd.hidden_field :employee_id, value: current_user.employee.id %>
   <% end %>
-  <%= f.submit "Create", class: "btn btn-primary" %>
+  <%= f.submit "Update", class: "btn btn-primary" %>
 <% end %>

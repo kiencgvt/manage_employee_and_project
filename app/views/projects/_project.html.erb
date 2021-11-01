@@ -1,8 +1,14 @@
 <li id="project-<%= project.id %>">
-  <span class="content"><%= project.description %></span>
+  <h3><%= project.name %></h3>
+  <span class="content"><strong>Description:</strong> <%= project.description %></span>
   <span class="timestamp">
     <p class="text-danger">
-      <%= project.created_at.strftime("The project was created at %r on %d/%m/%Y") %>
+      <%= project.created_at.strftime("Created at %r on %d/%m/%Y") %>
+      <% if current_user.employee.projects.ids.include? project.id %>
+        <%= link_to "Delete", project, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+        <%= link_to "Edit", edit_project_path(project.id), class: "btn btn-primary" %>
+        <%= link_to "Show", project_path(project.id), class: "btn btn-info"%>
+      <% end %>
     </p>
   </span>
 </li>

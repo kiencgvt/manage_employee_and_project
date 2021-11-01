@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2021_10_28_022127) do
     t.datetime "end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id", "project_id"], name: "index_project_details_on_employee_id_and_project_id"
     t.index ["employee_id"], name: "index_project_details_on_employee_id"
     t.index ["project_id"], name: "index_project_details_on_project_id"
   end

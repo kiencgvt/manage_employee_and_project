@@ -8,6 +8,15 @@
         <%= render 'shared/project_form' %>
       </section>
     </aside>
+    <div class="col-md-8">
+      <h3>Project Feed</h3>
+      <% if @projects.any? %>
+        <ol class="microposts">
+          <%= render @projects %>
+        </ol>
+        <%= will_paginate @projects %>
+      <% end %>
+    </div>
   </div>
 <% else %>
   <h1>Management App</h1>

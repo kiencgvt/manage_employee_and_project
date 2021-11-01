@@ -5,7 +5,7 @@ class CreateProjectDetails < ActiveRecord::Migration[6.1]
       t.references :project, null: false, foreign_key: true
       t.datetime :start_date
       t.datetime :end_date
-
+      t.index [:employee_id, :project_id]
       t.timestamps
     end
   end
