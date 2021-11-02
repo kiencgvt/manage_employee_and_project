@@ -3,38 +3,96 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <table class="table">
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
 
-  <div class="field">
-    <%= f.label :role_id %><br/>
-    <%= f.collection_select :role_id, Role.where("id > 1"), :id, :name %>
-  </div>
+        <div class="field">
+          <%= f.label :role_id %><br/>
+          <%= f.collection_select :role_id, Role.where("id > 1"), :id, :name, {:selected => current_user.role_id} %>
+        </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+        <div class="field">
+          <%= f.label :department_id %><br/>
+          <%= f.collection_select :department_id, Department.all, :id, :name, {:selected => current_user.department_id} %>
+        </div>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+        <div class="field">
+          <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+          <%= f.password_field :password, autocomplete: "new-password" %>
+          <% if @minimum_password_length %>
+            <br />
+            <em><%= @minimum_password_length %> characters minimum</em>
+          <% end %>
+        </div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
+        <div class="field">
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+          <%= f.password_field :current_password, autocomplete: "current-password" %>
+        </div>
+      </td>
+      <td>
+        <%= f.fields_for :employee do |e| %>
+          <%= e.hidden_field :id, value: current_user.employee.id%>
+          <%= e.hidden_field :profile_id, value: current_user.employee.profile_id%>
+          <%= e.hidden_field :user_id, value: current_user.id%>
+          <div class="field">
+            <%= e.label :address %><br />
+            <%= e.text_field :address, value: current_user.employee.address %>
+          </div>
+          <div class="field">
+            <%= e.label :phone_number %><br />
+            <%= e.text_field :phone_number, value: current_user.employee.phone_number %>
+          </div>
+          <div class="field">
+            <%= e.label :working_day %><br />
+            <% if current_user.employee.working_day.nil? %>
+              <%= e.date_field :working_day %>
+            <% else %>
+              <%= e.date_field :working_day, value: current_user.employee.working_day.strftime('%Y-%m-%d')%>
+            <% end %>
+          </div>
+
+          <%= e.fields_for :profile do |p| %>
+            <%= p.hidden_field :id, value: current_user.employee.profile.id%>
+            <div class="field">
+              <%= p.label :name %><br />
+              <%= p.text_field :name, value: current_user.employee.profile.name %>
+            </div>
+            <div class="field">
+              <%= p.label :birthday %><br />
+              <% if current_user.employee.profile.birthday.nil? %>
+                <%= p.date_field :birthday %>
+              <% else %>
+                <%= p.date_field :birthday, value: current_user.employee.profile.birthday.strftime('%Y-%m-%d') %>
+              <% end %>
+            </div>
+            <div class="field">
+              <%= p.label :home_town %><br />
+              <%= p.text_field :home_town, value: current_user.employee.profile.home_town %>
+            </div>
+            <div class="field">
+              <%= p.label :gender %><br />
+              <%= p.select :gender, ["Male", "Female"], {:selected => current_user.employee.profile.gender} %>
+            </div>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
 
   <div class="actions">
     <%= f.submit "Update" %>

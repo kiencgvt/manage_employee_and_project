@@ -9,11 +9,22 @@
   Department.create(name: "BU#{i+1}")
 end
 Role.create([ { name: "Admin" }, { name: "HR" }, { name: "Leader" }, { name: "Employee" } ])
-User.create(email: "admin@gmail.com", password: "123456", role_id: 1)
+User.create(email: "admin@gmail.com", password: "123456", role_id: 1, department_id: 1)
 Profile.create(name: "Admin")
 Employee.create(profile_id: 1, user_id: 1)
-admin = User.find(1)
+
+User.create(email: "leader@gmail.com", password: "123456", role_id: 3, department_id: 2)
+Profile.create(name: "Kien")
+Employee.create(profile_id: 2, user_id: 2)
+
+=begin
+User.create(email: "employee@gmail.com", password: "123456", role_id: 4)
+Profile.create(name: "Hieu")
+Employee.create(profile_id: 3, user_id: 3, department_id: 1)
+=end
+
+admin = User.find(2)
 50.times do
   description = Faker::Lorem.sentence(word_count: 20)
-  admin.employee.projects.create(description: description)
+  admin.employee.projects.create(description: description, department_id: 1)
 end

@@ -1,1 +1,32 @@
-Show template
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Project Name</th>
+    <th scope="col">Description</th>
+    <th scope="col">Start</th>
+    <th scope="col">End</th>
+    <th scope="col">Department</th>
+    <th scope="col">Leader</th>
+    <th scope="col">Employees</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <th scope="row">1</th>
+    <td><%= @project.name %></td>
+    <td><%= @project.description %></td>
+    <td><%= @project.start_date %></td>
+    <td><%= @project.end_date %></td>
+    <td><%= @project.department.name %></td>
+    <td><%= @leader_name %></td>
+    <td>
+      <ol>
+        <% @project.employees do |e|%>
+          <li><%= e.profile.name %></li>
+        <% end %>
+      </ol>
+    </td>
+  </tr>
+  </tbody>
+</table>

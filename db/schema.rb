@@ -24,10 +24,8 @@ ActiveRecord::Schema.define(version: 2021_10_28_022127) do
     t.string "address"
     t.string "phone_number"
     t.datetime "working_day"
-    t.bigint "department_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["department_id"], name: "index_employees_on_department_id"
     t.index ["profile_id"], name: "index_employees_on_profile_id"
     t.index ["user_id"], name: "index_employees_on_user_id"
   end
@@ -44,8 +42,6 @@ ActiveRecord::Schema.define(version: 2021_10_28_022127) do
   create_table "project_details", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "employee_id", null: false
     t.bigint "project_id", null: false
-    t.datetime "start_date"
-    t.datetime "end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["employee_id", "project_id"], name: "index_project_details_on_employee_id_and_project_id"
@@ -57,6 +53,8 @@ ActiveRecord::Schema.define(version: 2021_10_28_022127) do
     t.string "name"
     t.text "description"
     t.bigint "department_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["department_id"], name: "index_projects_on_department_id"
@@ -77,16 +75,18 @@ ActiveRecord::Schema.define(version: 2021_10_28_022127) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "role_id"
+    t.bigint "department_id"
+    t.index ["department_id"], name: "fk_rails_f29bf9cdf2"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "fk_rails_642f17018b"
   end
 
-  add_foreign_key "employees", "departments"
   add_foreign_key "employees", "profiles"
   add_foreign_key "employees", "users"
   add_foreign_key "project_details", "employees"
   add_foreign_key "project_details", "projects"
   add_foreign_key "projects", "departments"
+  add_foreign_key "users", "departments"
   add_foreign_key "users", "roles"
 end

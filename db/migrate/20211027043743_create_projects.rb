@@ -4,6 +4,8 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :name
       t.text :description
       t.references :department, foreign_key: true
+      t.datetime :start_date
+      t.datetime :end_date
 
       t.timestamps
     end
