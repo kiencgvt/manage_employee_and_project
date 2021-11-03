@@ -5,4 +5,9 @@ class Project < ApplicationRecord
   accepts_nested_attributes_for :project_details
   validates :description, presence: true , length: { maximum: 140 }
 
+
+  def leader
+    employees.find { |employee| employee.user.role.id == 3 }
+  end
+
 end

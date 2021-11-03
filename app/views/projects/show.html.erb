@@ -19,7 +19,7 @@
     <td><%= @project.start_date %></td>
     <td><%= @project.end_date %></td>
     <td><%= @project.department.name %></td>
-    <td><%= @leader_name %></td>
+    <td><%= @project.leader.profile.name %></td>
     <td>
       <ol>
         <% @project.employees do |e|%>

@@ -9,4 +9,18 @@
       <%= will_paginate @projects %>
     <% end %>
   </div>
+  <div class="col-md-4">
+    <ul class="list-group">
+      <li class="list-group-item">Name: <%= @user.employee.profile.name %></li>
+      <li class="list-group-item">Gender: <%= @user.employee.profile.gender %></li>
+      <li class="list-group-item">Birthday: <%= @user.employee.profile.birthday.strftime("%d/%m/%Y") if @user.employee.profile.birthday %></li>
+      <li class="list-group-item">Department: <%= @user.department.name if !@user.admin? %></li>
+      <li class="list-group-item">Role: <%= @user.role.name %></li>
+      <li class="list-group-item">Email: <%= @user.email %></li>
+      <li class="list-group-item">Phone: <%= @user.employee.phone_number %></li>
+      <li class="list-group-item">Address: <%= @user.employee.address %></li>
+      <li class="list-group-item">Home town: <%= @user.employee.profile.home_town %></li>
+      <li class="list-group-item">Working day: <%= @user.employee.working_day.strftime("%d/%m/%Y") if @user.employee.working_day %></li>
+    </ul>
+  </div>
 </div>

@@ -1,6 +1,15 @@
-<li>
-  <%= link_to user.employee.profile.name, user %>
-  <% if current_user.role.name == 'Admin' && user != current_user%>
-    | <%= link_to "Delete", user, method: :delete, data: { confirm: "Are you sure?"} %>
-  <% end %>
-</li>
+<tr>
+  <td><%= user.employee.profile.name %></td>
+  <td><%= user.email %></td>
+  <td><%= user.department.name if !user.admin? %></td>
+  <td><%= user.role.name %></td>
+  <td align="center">
+    <%= link_to "Show", user, class: "btn btn-info", style: "" %>
+  </td>
+  <td align="center">
+    <% if !user.admin? %>
+      <%= link_to "Delete", user, method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-danger" %>
+    <% end %>
+  </td>
+</tr>
+

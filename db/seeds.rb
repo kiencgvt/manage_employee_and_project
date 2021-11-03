@@ -9,7 +9,7 @@
   Department.create(name: "BU#{i+1}")
 end
 Role.create([ { name: "Admin" }, { name: "HR" }, { name: "Leader" }, { name: "Employee" } ])
-User.create(email: "admin@gmail.com", password: "123456", role_id: 1, department_id: 1)
+User.create(email: "admin@gmail.com", password: "123456", role_id: 1)
 Profile.create(name: "Admin")
 Employee.create(profile_id: 1, user_id: 1)
 

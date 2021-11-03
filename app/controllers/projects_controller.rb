@@ -1,15 +1,8 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy]
 
-  LEADER = 3
-
   def show
     @project = Project.find(params[:id])
-    @project.employees.each do |e|
-      if e.user.role.id == LEADER
-        @leader_name = e.profile.name
-      end
-    end
   end
 
   def create
