@@ -1,5 +1,10 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+
+  def new
+
+  end
+
   def show
     @user = User.find(params[:id])
     authorize @user
@@ -14,7 +19,7 @@ class UsersController < ApplicationController
   def destroy
     authorize current_user
     User.find(params[:id]).destroy
-    flash[:success] = "User deleted"
+    flash[:success] = "User deleted!"
     redirect_to users_url
   end
 

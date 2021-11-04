@@ -1,32 +1,59 @@
-<table class="table">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Project Name</th>
-    <th scope="col">Description</th>
-    <th scope="col">Start</th>
-    <th scope="col">End</th>
-    <th scope="col">Department</th>
-    <th scope="col">Leader</th>
-    <th scope="col">Employees</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <th scope="row">1</th>
-    <td><%= @project.name %></td>
-    <td><%= @project.description %></td>
-    <td><%= @project.start_date %></td>
-    <td><%= @project.end_date %></td>
-    <td><%= @project.department.name %></td>
-    <td><%= @project.leader.profile.name %></td>
-    <td>
-      <ol>
-        <% @project.employees do |e|%>
-          <li><%= e.profile.name %></li>
+<div class="just-padding container" style="width: 70%">
+  <h3>Project Detail</h3>
+  <div class="list-group list-group-root well">
+
+    <p class="list-group-item">
+      <b>ID: </b> <%= @project.id %>
+    </p>
+    <p class="list-group-item">
+      <b>Project Name: </b> <%= @project.name %>
+    </p>
+
+    <p href="#description" class="list-group-item" data-toggle="collapse">
+      <i class="glyphicon glyphicon-chevron-right"></i><b>Description: </b>
+    </p>
+    <div class="list-group collapse" id="description">
+
+      <p class="list-group-item" data-toggle="collapse">
+        <%= @project.description %>
+      </p>
+
+    </div>
+
+    <p class="list-group-item">
+      <b>Start -
+        End: </b><%= @project.start_date.strftime("%d/%m/%Y") if @project.start_date %><%= " - " << @project.end_date.strftime("%d/%m/%Y") if @project.start_date %>
+    </p>
+
+    <p class="list-group-item">
+      <b>Department: </b><%= @project.department.name %>
+    </p>
+
+    <p class="list-group-item">
+      <b>Leader: </b><%= @project.leader.profile.name %>
+    </p>
+
+    <p href="#employees" class="list-group-item" data-toggle="collapse">
+      <i class="glyphicon glyphicon-chevron-right"></i><b>Employees</b>
+    </p>
+    <div class="list-group collapse" id="employees" style="background: white">
+      <ol style="display: flex; justify-content: flex-start; align-items: baseline">
+        <% @project.employees.each do |e| %>
+          <li>
+            <%= link_to e.profile.name, e.user, class: "list-group-item", style: "width: 200px; border: none"%>
+          </li>
+          <span>
+              <a href="#">
+                <span class="glyphicon glyphicon-minus-sign"></span>
+              </a>
+            </span>
         <% end %>
       </ol>
-    </td>
-  </tr>
-  </tbody>
-</table>
+    </div>
+
+  </div>
+  <div class="text-center">
+    <a class="btn btn-primary btn-sm">Add employee</a>
+  </div>
+
+</div>

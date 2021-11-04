@@ -1,5 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  prepend_before_action :require_no_authentication, only: [:cancel]
+  before_action :authenticate_scope!, only: [:new, :create, :edit, :update, :destroy]
 
   def new
     authorize current_user
@@ -19,6 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
         Profile.create
         Employee.create profile_id: Profile.last.id, user_id: User.last.id
+        flash[:success] = "User created!"
 
         redirect_to users_path
       else

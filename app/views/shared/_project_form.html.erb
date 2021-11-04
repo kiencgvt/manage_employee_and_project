@@ -8,9 +8,23 @@
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </div>
+  <% if current_user.admin? %>
+  <div class="field">
+    <%= f.label :department %><br />
+    <%= f.collection_select :department_id, Department.all, :id, :name %>
+  </div>
+  <% else %>
+    <%= f.hidden_field :department_id, value: current_user.department_id %>
+  <% end %>
+  <br />
+  <div class="field">
+    <%= f.label :start_date %> - <%= f.label :end_date %><br />
+    <%= f.date_field :start_date %> - <%= f.date_field :end_date %>
+  </div>
   <%= f.fields_for :project_details do |pd| %>
     <%= pd.hidden_field :project_id, value: Project.last.id %>
     <%= pd.hidden_field :employee_id, value: current_user.employee.id %>
   <% end %>
+  <br />
   <%= f.submit "Create", class: "btn btn-primary" %>
 <% end %>

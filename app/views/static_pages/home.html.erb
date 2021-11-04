@@ -9,11 +9,15 @@
       </section>
     </aside>
     <div class="col-md-8">
-      <h3>Projects</h3>
+      <h3>Projects (<%= @projects.count %>)</h3>
       <% if @projects.any? %>
-        <ol class="microposts">
+        <%= will_paginate @projects %>
+        <table class="table table-bordered table-hover">
+          <th>Id</th>
+          <th>Name</th>
+          <th>Created at</th>
           <%= render @projects %>
-        </ol>
+        </table>
         <%= will_paginate @projects %>
       <% end %>
     </div>
