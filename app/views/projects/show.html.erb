@@ -37,23 +37,35 @@
       <i class="glyphicon glyphicon-chevron-right"></i><b>Employees</b>
     </p>
     <div class="list-group collapse" id="employees" style="background: white">
-      <ol style="display: flex; justify-content: flex-start; align-items: baseline">
+      <ol>
         <% @project.employees.each do |e| %>
-          <li>
-            <%= link_to e.profile.name, e.user, class: "list-group-item", style: "width: 200px; border: none"%>
-          </li>
-          <span>
+          <div style="display: flex; justify-content: flex-start; align-items: baseline">
+            <li>
+              <%= link_to e.profile.name, e.user, class: "list-group-item", style: "width: 200px; border: none"%>
+            </li>
+            <span>
             <%= link_to destroy_employee_from_project_path(e.id, @project.id), method: :delete, data: { confirm: 'Are you sure?'} do %>
               <span class="glyphicon glyphicon-minus-sign"></span>
             <% end %>
-          </span>
+            </span>
+          </div>
         <% end %>
       </ol>
     </div>
 
   </div>
-  <div class="text-center">
-    <a class="btn btn-primary btn-sm">Add employee</a>
-  </div>
 
+  <%= form_with(model: @project_detail, local: true) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <div style="display: flex; justify-content: space-evenly; align-items: baseline">
+      <div class="field">
+        <div ></div>
+        <%= f.collection_select :employee_id, @employees, :id, :name, class: "form-control" %>
+      </div>
+      <%= f.hidden_field :project_id, value: @project.id %>
+      <div class="text-center">
+        <%= f.submit "Add employee", class: "btn btn-primary btn-sm" %>
+      </div>
+    </div>
+  <% end %>
 </div>

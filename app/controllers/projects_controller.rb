@@ -3,6 +3,9 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @project_detail = @project.project_details.new
+    # @employees = User.where("department_id = ?", @project.department_id).employee
+    @employees = Employee.joins(:user).merge(User.where("role_id = ? and department_id = ?", 4, @project.department_id))
   end
 
   def create
@@ -46,9 +49,24 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def add_employee_to_project
+    @project = Project.find(params[:id])
+    @project_detail = @project.project_details.new(project_detail_params)
+    if @project_detail.save
+      flash[:success] = "Add employee to the project"
+    else
+      flash[:danger] = "Employee already in the project"
+    end
+    redirect_to request.referrer || root_path
+  end
+
   private
 
   def project_params
     params.require(:project).permit(:name, :description, :department_id, :start_date, :end_date, project_details_attributes: [:id, :project_id, :employee_id])
+  end
+
+  def project_detail_params
+    params.require(:project_detail).permit(:employee_id, :project_id)
   end
 end

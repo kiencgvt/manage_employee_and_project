@@ -4,4 +4,8 @@ class Employee < ApplicationRecord
   has_many :project_details, dependent: :destroy
   has_many :projects, through: :project_details
   belongs_to :user
+
+  def name
+    profile.name
+  end
 end
