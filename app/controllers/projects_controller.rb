@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    ProjectDetail.where("project_id = ? and employee_id = ?", params[:id], current_user.employee.id).destroy_all
+    ProjectDetail.find_by("project_id = ? and employee_id = ?", params[:id], current_user.employee.id).destroy
     flash[:success] = "Project deleted"
     redirect_to root_url
   end
@@ -33,6 +33,16 @@ class ProjectsController < ApplicationController
       redirect_to root_url
     else
       render 'edit'
+    end
+  end
+
+  def destroy_employee_from_project
+    ProjectDetail.find_by("employee_id = ? and project_id = ?", params[:id_e], params[:id_p]).destroy
+    flash[:success] = "Employee removed from the project"
+    if Project.find(params[:id_p]).leader.nil?
+      redirect_to root_path
+    else
+      redirect_back(fallback_location: root_path)
     end
   end
 

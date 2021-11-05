@@ -43,10 +43,10 @@
             <%= link_to e.profile.name, e.user, class: "list-group-item", style: "width: 200px; border: none"%>
           </li>
           <span>
-              <a href="#">
-                <span class="glyphicon glyphicon-minus-sign"></span>
-              </a>
-            </span>
+            <%= link_to destroy_employee_from_project_path(e.id, @project.id), method: :delete, data: { confirm: 'Are you sure?'} do %>
+              <span class="glyphicon glyphicon-minus-sign"></span>
+            <% end %>
+          </span>
         <% end %>
       </ol>
     </div>

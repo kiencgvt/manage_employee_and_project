@@ -14,4 +14,5 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show, :destroy]
   resources :projects, only: [:create, :destroy, :edit, :update, :show]
+  delete ':id_e/employee/:id_p/project', to: 'projects#destroy_employee_from_project', as: 'destroy_employee_from_project'
 end
