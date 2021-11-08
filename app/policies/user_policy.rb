@@ -8,7 +8,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    user.admin? || user == record
+    user.admin? || user.hr? || (user.leader? && User.where("role_id = ? && department_id = ?", 4, user.department_id)).include?(record) || user == record
   end
 
   def new?

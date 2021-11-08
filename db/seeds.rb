@@ -13,7 +13,7 @@ User.create(email: "admin@gmail.com", password: "123456", role_id: 1)
 Profile.create(name: "Admin")
 Employee.create(profile_id: 1, user_id: 1)
 
-User.create(email: "leader@gmail.com", password: "123456", role_id: 3, department_id: 2)
+User.create(email: "leader@gmail.com", password: "123456", role_id: 3, department_id: 1)
 Profile.create(name: "Kien")
 Employee.create(profile_id: 2, user_id: 2)
 

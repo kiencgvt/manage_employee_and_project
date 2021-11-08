@@ -3,9 +3,13 @@
   <div class="col-md-8">
     <% if @user.employee.projects.any? %>
       <h3>Projects (<%= @user.employee.projects.count %>)</h3>
-      <ol class="microposts">
+      <%= will_paginate @projects %>
+      <table class="table table-bordered table-hover">
+        <th>Id</th>
+        <th>Name</th>
+        <th>Created at</th>
         <%= render @projects %>
-      </ol>
+      </table>
       <%= will_paginate @projects %>
     <% end %>
   </div>
